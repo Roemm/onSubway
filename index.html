@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Subway Sounds</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+</head>
+<body onload="adWidth();playAudio()">
+
+	<audio autoplay>
+		<source src="sounds/background.wav">
+	</audio>
+
+	<audio id="beat">
+		<source src="sounds/beat.wav">
+	</audio>
+
+	<script>
+
+		var images = ["kids1","chat1","phone1","music1"];
+		var parts = ["kids","chat","phoneF","think","phoneM","music"];
+		var states = [false, false, false, false, false, false];
+
+		//create pictures and audio
+		for (var i = 0; i < images.length; i++) {
+			//create showing pictures
+			var d = document.createElement("DIV");
+			d.className = "allImg";
+
+			var sImg = document.createElement("IMG");
+			sImg.src = "images/" + (i+1) + ".png";
+			sImg.id = images[i];
+
+
+			d.appendChild(sImg);
+			document.body.appendChild(d);
+		}
+
+		for (var i = 0; i < parts.length; i++) {
+			//create showing parts
+			var dp = document.createElement("DIV");
+			dp.className = "allParts";
+
+			var pImg = document.createElement("IMG");
+			pImg.src = "images/-" + (i+1) + ".png";
+			pImg.id = parts[i];
+
+
+			dp.appendChild(pImg);
+			document.body.appendChild(dp);
+
+			document.getElementById(parts[i]).style.display = "none";
+
+			//create choosing parts
+			var dc = document.createElement("DIV");
+			dc.className = "allChoose";
+			dc.id = "select" + i;
+
+			dp.appendChild(dc);
+
+			//create audio
+			var a = document.createElement("AUDIO");
+			a.id = "audio" + i;
+			a.loop = true;
+			var s = document.createElement("SOURCE");
+			s.src = "sounds/" + i + ".wav";
+
+			a.appendChild(s);
+			document.body.appendChild(a);
+
+		}
+		
+
+		//adjust position 
+		function adWidth(){	
+			n = document.getElementById("kids1").width;
+
+			for (var i = 0; i < images.length; i++) {
+				document.getElementById(images[i]).style.position = "absolute";
+				document.getElementById(images[i]).style.left = n * i + "px";
+				document.getElementById(images[i]).style.top = "0px";
+				document.getElementById(parts[i]).style.position = "absolute";
+				document.getElementById(parts[i]).style.left = n * i + "px";
+				document.getElementById(parts[i]).style.top = "0px";
+			// console.log(n*i);
+			}
+
+			document.getElementById("phoneM").style.position = "absolute";
+			document.getElementById("music").style.position = "absolute";
+			document.getElementById("phoneM").style.left = n * 2 + "px";
+			document.getElementById("music").style.left = n * 3 + "px";
+			document.getElementById("phoneM").style.top = "0px";
+			document.getElementById("music").style.top = "0px";
+		}
+		
+		function playAudio() {
+
+			// var chPart = document.getElementsByClassName("allParts");
+			var chArea = document.getElementsByClassName("allChoose");
+
+			for (var i = 0; i < chArea.length; i++) {
+				chArea[i].onmouseover = function(e){
+					this.style.cursor = "pointer";
+
+					var newID = this.id;
+					newID = newID.split("t"); 
+					// console.log(newID[1]);
+
+					var state = states[newID[1]];
+
+					if(state === false){
+						document.getElementById(parts[newID[1]]).style.display = "block";
+					}
+
+				}
+
+				chArea[i].onmouseout = function(e){
+					var newID = this.id;
+					newID = newID.split("t"); 
+					// console.log(newID[1]);
+
+					var state = states[newID[1]];
+
+					if(state === false){
+						document.getElementById(parts[newID[1]]).style.display = "none";
+					}
+				}
+
+				chArea[i].onclick = function(e) {
+				var newID = this.id;
+				// var otherID = !this.id;
+
+				// console.log(otherID);
+				
+				newID = newID.split("t"); 
+
+				var state = states[newID[1]];
+				state = !state;
+				states[newID[1]] = state;
+
+				
+				var sound = document.getElementById("audio" + newID[1]);
+
+				//playing or stopping audio based on what the boolean state is
+				if (state === true) {
+					sound.play();
+					document.getElementById(parts[newID[1]]).style.display = "block";
+				} else {
+					sound.pause();
+					sound.currentTime = 0;
+					document.getElementById(parts[newID[1]]).style.display = "none";
+				}
+
+				function checkState(newState){
+					return newState === true;
+				}
+
+
+				var check = states.every(checkState);
+				console.log(check);
+
+				
+				if (check === true){
+					// console.log("h");
+					setTimeout(playLast, 5000);
+
+					function playLast(){
+						var c = confirm("Do you want to hear the mixed version?");
+
+						if (c === true) {
+
+						document.body.innerHTML= "";
+						var para = document.createElement("p");
+						var node = document.createTextNode("Are you ready?");
+						var br = document.createElement("br");
+						var node1 = document.createTextNode("Drop the beat!");
+						para.appendChild(node);
+						para.appendChild(br);
+						para.appendChild(node1);
+						para.id = "beatT";
+
+						document.body.appendChild(para);
+						document.body.style.backgroundColor = "#02011F";
+						
+						var al = document.createElement("AUDIO");
+						al.id = "beat";
+						al.autoplay = true;
+						var sl = document.createElement("SOURCE");
+						sl.src = "sounds/beat.wav";
+
+						al.appendChild(sl);
+						document.body.appendChild(al);
+					}
+					}
+						
+					}
+
+				}
+
+				}
+
+			}
+
+
+
+	</script>
+</body>
+</html>

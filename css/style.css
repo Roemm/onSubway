@@ -1,0 +1,91 @@
+body, html {
+	height: 100%;
+	margin: 0;
+	overflow-y: hidden;
+}
+
+img {
+    height: 100vh;
+}
+
+.allImg {
+	position: relative;
+	/*height: 100vh;
+	float: left;*/
+}
+
+.allParts {
+	position: relative;
+}
+
+#beatT{
+   font-family: 'Gloria Hallelujah', cursive;
+   font-size: 100px;
+    text-align: center;
+    color: white;
+}
+
+.select:hover {
+	cursor: pointer;
+}
+
+#select0 {
+	width: 490px;
+    height: 395px;
+    /* background-color: red; */
+    position: absolute;
+    left: 181px;
+    top: 250px;
+    border-radius: 50%;
+}
+
+#select1 {
+	width: 405px;
+    height: 560px;
+    /*background-color: red;*/
+    position: absolute;
+    left: 1255px;
+    top: 40px;
+    border-radius: 50%;
+}
+
+#select2 {
+	width: 290px;
+    height: 570px;
+    /* background-color: red; */
+    position: absolute;
+    left: 2100px;
+    top: 57px;
+    border-radius: 50%;
+}
+
+#select3 {
+    width: 240px;
+    height: 470px;
+    /* background-color: red; */
+    position: absolute;
+    left: 2890px;
+    top: 156px;
+    border-radius: 50%;
+}
+
+#select4 {
+	width: 270px;
+    height: 570px;
+    /* background-color: red; */
+    position: absolute;
+    left: 2400px;
+    top: 25px;
+    border-radius: 50%;
+}
+
+#select5 {
+	width: 185px;
+    height: 480px;
+    /*background-color: red;*/
+    position: absolute;
+    left: 3330px;
+    top: 75px;
+    border-radius: 50%;
+}
+
